@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bandal Enterprises | Tourism · Properties · Fresh Produce</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --gold:    #c9a84c;
+      --gold-lt: #e8cc7a;
+      --gold-dk: #8a6820;
+      --dark:    #0c0f14;
+      --dark2:   #141820;
+      --dark3:   #1c2130;
+      --mid:     #252d3f;
+      --sea:     #0d4f6b;
+      --sea2:    #1a7fa0;
+      --green:   #1e6644;
+      --green2:  #28a86a;
+      --coral:   #d9512c;
+      --light:   #f5f0e8;
+      --white:   #ffffff;
+      --text-m:  rgba(255,255,255,0.7);
+      --radius:  20px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    h1,h2,h3,h4 { font-family: 'Cormorant Garamond', serif; }
+
+    /* ===========================
+       NAVBAR
+    =========================== */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 0;
+      transition: 0.4s;
+    }
+    .navbar.scrolled {
+      background: rgba(12,15,20,0.97);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+    }
+    .nav-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .nav-logo {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+    .nav-logo .be-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 1px;
+    }
+    .nav-logo .be-sub {
+      font-size: 0.7rem;
+      color: var(--text-m);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .nav-links {
+      display: flex;
+      gap: 0.3rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.8);
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      transition: 0.2s;
+      letter-spacing: 0.3px;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--gold);
+      background: rgba(201,168,76,0.1);
+    }
+    .nav-cta {
+      background: var(--gold) !important;
+      color: var(--dark) !important;
+      font-weight: 600 !important;
+      padding: 0.55rem 1.4rem !important;
+    }
+    .nav-cta:hover { background: var(--gold-lt) !important; transform: translateY(-1px); }
+
+    /* Mobile menu */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--gold);
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    /* ===========================
+       HERO - FULL SCREEN
+    =========================== */
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Layered background */
+    .hero-bg-layer {
+      position: absolute;
+      inset: 0;
+    }
+    .hero-bg-layer.l1 {
+      background: linear-gradient(160deg, #060a10 0%, #0c1828 40%, #0d3d52 70%, #0c1828 100%);
+    }
+    .hero-bg-layer.l2 {
+      background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1800&q=75');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.22;
+    }
+    .hero-bg-layer.l3 {
+      background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(13,79,107,0.6) 0%, transparent 70%);
+    }
+    .hero-bg-layer.l4 {
+      background: linear-gradient(to bottom, rgba(12,15,20,0.3) 0%, transparent 30%, transparent 60%, rgba(12,15,20,0.95) 100%);
+    }
+
+    /* Gold particle dots */
+    .particles {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--gold);
+      animation: particleFloat linear infinite;
+      opacity: 0;
+    }
+    @keyframes particleFloat {
+      0% { transform: translateY(100vh) scale(0); opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.3; }
+      100% { transform: translateY(-20px) scale(1); opacity: 0; }
+    }
+
+    /* Animated waves at bottom */
+    .hero-waves {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 160px;
+      overflow: hidden;
+    }
+    .hero-waves svg { display: block; }
+    .wave-anim { animation: waveSway 8s ease-in-out infinite alternate; }
+    .wave-anim2 { animation: waveSway 12s ease-in-out infinite alternate-reverse; }
+    @keyframes waveSway {
+      from { transform: translateX(0); }
+      to { transform: translateX(-4%); }
+    }
+
+    /* Hero content */
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+      max-width: 900px;
+      animation: heroReveal 1.2s ease both;
+    }
+    @keyframes heroReveal {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(201,168,76,0.12);
+      border: 1px solid rgba(201,168,76,0.4);
+      color: var(--gold-lt);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      padding: 0.5rem 1.5rem;
+      border-radius: 50px;
+      margin-bottom: 2rem;
+    }
+    .hero-badge::before { content: '✦'; }
+    .hero-badge::after  { content: '✦'; }
+
+    .hero-title {
+      font-size: clamp(3.5rem, 9vw, 7rem);
+      font-weight: 700;
+      line-height: 1;
+      color: white;
+      margin-bottom: 0.3rem;
+      letter-spacing: -1px;
+    }
+    .hero-title .gold { color: var(--gold); }
+
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.3rem, 3.5vw, 2rem);
+      color: rgba(255,255,255,0.6);
+      font-style: italic;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-tagline {
+      font-size: 1rem;
+      color: var(--text-m);
+      letter-spacing: 1px;
+      margin-bottom: 2.5rem;
+    }
+    .hero-tagline .dot { color: var(--gold); margin: 0 0.6rem; }
+
+    /* Service pills in hero */
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      justify-content: center;
+      margin-bottom: 3rem;
+    }
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.5rem;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      border: 1px solid;
+      transition: 0.25s;
+      cursor: default;
+    }
+    .hero-pill.sea  { border-color: rgba(26,127,160,0.5); color: #7dd8f5; background: rgba(26,127,160,0.1); }
+    .hero-pill.prop { border-color: rgba(201,168,76,0.5); color: var(--gold-lt); background: rgba(201,168,76,0.1); }
+    .hero-pill.veg  { border-color: rgba(40,168,106,0.5); color: #7de8b0; background: rgba(40,168,106,0.1); }
+    .hero-pill:hover { transform: translateY(-3px); }
+
+    .hero-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    .btn-gold {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dk));
+      color: var(--dark);
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 8px 30px rgba(201,168,76,0.4);
+      transition: 0.25s;
+      letter-spacing: 0.3px;
+    }
+    .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(201,168,76,0.5); }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: transparent;
+      color: white;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.25);
+      transition: 0.25s;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.5); transform: translateY(-3px); }
+
+    /* Scroll indicator */
+    .scroll-cue {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: rgba(255,255,255,0.35);
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      z-index: 10;
+      animation: cueFloat 2.5s ease-in-out infinite;
+    }
+    @keyframes cueFloat {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(8px); }
+    }
+    .scroll-cue i { font-size: 1rem; }
+
+    /* ===========================
+       SECTION COMMONS
+    =========================== */
+    section { padding: 6rem 0; }
+    .container { width: 92%; max-width: 1300px; margin: 0 auto; }
+
+    .sec-header { text-align: center; margin-bottom: 4rem; }
+    .sec-eyebrow {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      padding: 0.3rem 1rem;
+      border-radius: 50px;
+    }
+    .eyebrow-gold { color: var(--gold); background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.25); }
+    .eyebrow-sea  { color: #7dd8f5; background: rgba(26,127,160,0.1); border: 1px solid rgba(26,127,160,0.25); }
+    .eyebrow-grn  { color: #7de8b0; background: rgba(40,168,106,0.1); border: 1px solid rgba(40,168,106,0.25); }
+
+    .sec-title {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.1;
+    }
+    .sec-desc {
+      font-size: 1.05rem;
+      color: var(--text-m);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    /* Divider */
+    .gold-divider {
+      width: 60px; height: 3px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      border-radius: 3px;
+      margin: 1rem auto;
+    }
+
+    /* ===========================
+       ABOUT / WHO WE ARE
+    =========================== */
+    .about-section { background: var(--dark2); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .about-visual {
+      position: relative;
+    }
+    .about-img-wrap {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      box-shadow: 0 30px 70px rgba(0,0,0,0.5);
+    }
+    .about-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .about-img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom right, rgba(13,79,107,0.3), rgba(201,168,76,0.1));
+    }
+    /* floating stat cards */
+    .stat-float {
+      position: absolute;
+      background: rgba(12,15,20,0.92);
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 16px;
+      padding: 1rem 1.5rem;
+      backdrop-filter: blur(12px);
+      text-align: center;
+      min-width: 110px;
+    }
+    .stat-float.s1 { bottom: -20px; left: -20px; }
+    .stat-float.s2 { top: -20px; right: -20px; }
+    .stat-float .num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .stat-float .lbl { font-size: 0.75rem; color: var(--text-m); margin-top: 0.2rem; letter-spacing: 0.5px; }
+
+    .about-text .be-full {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+    .about-text .person {
+      font-size: 1.1rem;
+      color: var(--gold-lt);
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+    .about-text .desig {
+      font-size: 0.85rem;
+      color: var(--text-m);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+    .about-text p {
+      color: var(--text-m);
+      line-height: 1.9;
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+    }
+    .stag {
+      padding: 0.45rem 1.1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    .stag.t1 { background: rgba(13,79,107,0.3); color: #7dd8f5; border: 1px solid rgba(26,127,160,0.3); }
+    .stag.t2 { background: rgba(201,168,76,0.15); color: var(--gold-lt); border: 1px solid rgba(201,168,76,0.3); }
+    .stag.t3 { background: rgba(30,102,68,0.3); color: #7de8b0; border: 1px solid rgba(40,168,106,0.3); }
+
+    .locations-bar {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+    }
+    .loc-icon { color: var(--gold); font-size: 1rem; }
+    .loc-item { font-size: 0.9rem; color: rgba(255,255,255,0.7); }
+    .loc-sep { color: rgba(255,255,255,0.2); }
+
+    /* ===========================
+       TOURISM SECTION
+    =========================== */
+    .tourism-section {
+      background: var(--dark);
+      position: relative;
+      overflow: hidden;
+    }
+    .tourism-section::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(13,79,107,0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .tour-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .tour-card {
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      background: var(--dark3);
+      transition: 0.35s;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .tour-card:hover { transform: translateY(-8px); box-shadow: 0 25px 60px rgba(0,0,0,0.4); border-color: rgba(201,168,76,0.2); }
+    .tour-card.featured { grid-column: span 2; }
+
+    .tour-img {
+      width: 100%;
+      aspect-ratio: 16/10;
+      overflow: hidden;
+      position: relative;
+    }
+    .tour-card.featured .tour-img { aspect-ratio: 16/8; }
+    .tour-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+      background: var(--sea);
+    }
+    .tour-card:hover .tour-img img { transform: scale(1.06); }
+    .tour-img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(12,15,20,0.9) 0%, rgba(12,15,20,0.1) 50%, transparent 100%);
+    }
+
+    .tour-body {
+      padding: 1.5rem;
+    }
+    .tour-label {
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+    .tour-body h3 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: white;
+    }
+    .tour-card.featured .tour-body h3 { font-size: 1.8rem; }
+    .tour-body p { font-size: 0.9rem; color: var(--text-m); line-height: 1.7; }
+
+    .tour-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .tf {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.6);
+      background: rgba(255,255,255,0.06);
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .tf i { color: var(--sea2); font-size: 0.7rem; }
+
+    /* Tourism highlights */
+    .tour-highlights {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .th-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 18px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: 0.3s;
+    }
+    .th-card:hover { background: rgba(13,79,107,0.15); border-color: rgba(26,127,160,0.3); transform: translateY(-5px); }
+    .th-icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
+    .th-card h4 { font-size: 1.1rem; color: white; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; font-weight: 600; }
+    .th-card p { font-size: 0.85rem; color: var(--text-m); line-height: 1.6; }
+
+    /* ===========================
+       PROPERTIES SECTION
+    =========================== */
+    .properties-section {
+      background: var(--dark2);
+      position: relative;
+      overflow: hidden;
+    }
+    .properties-section::after {
+      content: '';
+      position: absolute;
+      bottom: -150px; left: -150px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .prop-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .prop-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: 0.3s;
+    }
+    .prop-card:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+
+    .prop-img {
+      width: 100%; aspect-ratio: 4/3;
+      overflow: hidden;
+      position: relative;
+    }
+    .prop-img img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.4s;
+      background: #1c2130;
+    }
+    .prop-card:hover .prop-img img { transform: scale(1.05); }
+
+    .prop-badge {
+      position: absolute;
+      top: 12px; left: 12px;
+      background: var(--gold);
+      color: var(--dark);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .prop-body { padding: 1.5rem; }
+    .prop-city { font-size: 0.75rem; color: var(--gold); font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 0.4rem; }
+    .prop-body h3 { font-size: 1.25rem; color: white; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; font-weight: 600; }
+    .prop-body p { font-size: 0.88rem; color: var(--text-m); line-height: 1.7; margin-bottom: 1rem; }
+    .prop-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--gold);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+    .prop-link:hover { color: var(--gold-lt); gap: 0.7rem; }
+
+    .prop-cta-bar {
+      margin-top: 3rem;
+      background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.03));
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 20px;
+      padding: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .prop-cta-bar h3 { font-size: 1.8rem; color: var(--gold); margin-bottom: 0.3rem; }
+    .prop-cta-bar p { color: var(--text-m); font-size: 0.95rem; }
+
+    /* ===========================
+       VEGETABLES & FRUITS SECTION
+    =========================== */
+    .produce-section {
+      background: var(--dark);
+      position: relative;
+      overflow: hidden;
+    }
+    .produce-section::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0; bottom: 0;
+      width: 40%;
+      background: radial-gradient(ellipse at right, rgba(30,102,68,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .produce-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .produce-img-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .produce-img-item {
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+    }
+    .produce-img-item:first-child { grid-row: span 2; }
+    .produce-img-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      min-height: 140px;
+      background: var(--green);
+    }
+    .produce-img-item .p-label {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
+      color: white;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 1rem 0.8rem 0.6rem;
+    }
+
+    .produce-content h2 { font-size: clamp(2rem, 4vw, 3rem); color: white; margin-bottom: 0.5rem; }
+    .produce-content > p { color: var(--text-m); line-height: 1.9; margin-bottom: 2rem; font-size: 0.98rem; }
+
+    .produce-list { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2.5rem; }
+    .produce-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.2rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(40,168,106,0.15);
+      border-radius: 14px;
+      transition: 0.25s;
+    }
+    .produce-item:hover { background: rgba(30,102,68,0.12); border-color: rgba(40,168,106,0.3); }
+    .produce-item-icon {
+      width: 44px; height: 44px; min-width: 44px;
+      background: rgba(40,168,106,0.12);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+    }
+    .produce-item-text h4 { font-size: 1rem; color: #7de8b0; font-family: 'DM Sans'; font-weight: 600; margin-bottom: 0.2rem; }
+    .produce-item-text p { font-size: 0.85rem; color: var(--text-m); }
+
+    .coverage-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      background: rgba(40,168,106,0.08);
+      border: 1px solid rgba(40,168,106,0.2);
+      color: #7de8b0;
+    }
+
+    /* ===========================
+       COVERAGE / LOCATIONS
+    =========================== */
+    .coverage-section {
+      background: var(--dark2);
+      text-align: center;
+    }
+    .city-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .city-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 20px;
+      padding: 2.5rem 1.5rem;
+      transition: 0.3s;
+      cursor: default;
+    }
+    .city-card:hover { border-color: rgba(201,168,76,0.3); background: rgba(201,168,76,0.05); transform: translateY(-6px); }
+    .city-icon { font-size: 3rem; margin-bottom: 1rem; display: block; }
+    .city-card h3 { font-size: 1.4rem; color: var(--gold); margin-bottom: 0.8rem; font-family: 'DM Sans'; font-weight: 700; }
+    .city-services { display: flex; flex-direction: column; gap: 0.4rem; }
+    .cs { font-size: 0.82rem; color: var(--text-m); display: flex; align-items: center; gap: 0.5rem; }
+    .cs i { color: var(--green2); font-size: 0.7rem; }
+
+    /* ===========================
+       CONTACT SECTION
+    =========================== */
+    .contact-section {
+      background: var(--dark);
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(201,168,76,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .contact-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .contact-card-main {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 28px;
+      padding: 3.5rem;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-card-main::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .be-logo-contact {
+      width: 80px; height: 80px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dk));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin: 0 auto 1.5rem;
+      box-shadow: 0 0 40px rgba(201,168,76,0.3);
+    }
+
+    .contact-name { font-size: 2.2rem; color: var(--gold); margin-bottom: 0.2rem; }
+    .contact-desig { font-size: 0.85rem; color: var(--text-m); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 2.5rem; }
+
+    .contact-phone {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: white;
+      letter-spacing: 2px;
+      margin-bottom: 0.5rem;
+    }
+    .contact-phone-eng { font-size: 1.5rem; color: var(--text-m); margin-bottom: 2.5rem; font-family: 'Cormorant Garamond'; }
+
+    .contact-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+    }
+    .btn-call {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      background: var(--coral);
+      color: white;
+      padding: 1rem 2.2rem;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 8px 25px rgba(217,81,44,0.4);
+      transition: 0.25s;
+    }
+    .btn-call:hover { transform: translateY(-3px); box-shadow: 0 14px 35px rgba(217,81,44,0.5); background: #b53d1e; }
+    .btn-wa {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      background: #25D366;
+      color: white;
+      padding: 1rem 2.2rem;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 8px 25px rgba(37,211,102,0.35);
+      transition: 0.25s;
+    }
+    .btn-wa:hover { transform: translateY(-3px); box-shadow: 0 14px 35px rgba(37,211,102,0.45); background: #128C7E; }
+
+    .contact-services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+    .cs-chip {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-m);
+      text-align: center;
+    }
+    .cs-chip .cs-icon { font-size: 1.5rem; display: block; margin-bottom: 0.4rem; }
+    .cs-chip strong { color: white; display: block; font-size: 0.9rem; margin-bottom: 0.2rem; }
+
+    /* ===========================
+       FOOTER
+    =========================== */
+    footer {
+      background: #060a0f;
+      border-top: 1px solid rgba(201,168,76,0.15);
+      padding: 3rem 0 1.5rem;
+      text-align: center;
+    }
+    .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--gold); margin-bottom: 0.3rem; }
+    .footer-tag { font-size: 0.85rem; color: var(--text-m); letter-spacing: 1px; margin-bottom: 1.5rem; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-bottom: 1.5rem; }
+    .footer-links a { color: rgba(255,255,255,0.45); font-size: 0.85rem; text-decoration: none; transition: 0.2s; }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-copy { font-size: 0.8rem; color: rgba(255,255,255,0.2); }
+    .footer-dev { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.06); font-size: 0.8rem; color: rgba(255,255,255,0.2); }
+    .footer-dev a { color: var(--gold); text-decoration: none; font-weight: 600; }
+
+    /* ===========================
+       RESPONSIVE
+    =========================== */
+    @media (max-width: 1024px) {
+      .tour-grid { grid-template-columns: 1fr 1fr; }
+      .tour-card.featured { grid-column: span 2; }
+      .tour-highlights { grid-template-columns: repeat(2, 1fr); }
+      .city-grid { grid-template-columns: repeat(2, 1fr); }
+      .contact-services-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%; left: 0; right: 0;
+        background: rgba(12,15,20,0.98);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(201,168,76,0.15);
+        padding: 1rem;
+        flex-direction: column;
+        gap: 0.3rem;
+        align-items: stretch;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { text-align: center; padding: 0.8rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .stat-float.s1 { bottom: -10px; left: -10px; }
+      .stat-float.s2 { top: -10px; right: -10px; }
+      .prop-grid { grid-template-columns: 1fr; }
+      .tour-grid { grid-template-columns: 1fr; }
+      .tour-card.featured { grid-column: span 1; }
+      .produce-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .city-grid { grid-template-columns: 1fr 1fr; }
+      .contact-services-grid { grid-template-columns: 1fr; }
+      .prop-cta-bar { flex-direction: column; text-align: center; }
+      section { padding: 4rem 0; }
+      .contact-card-main { padding: 2rem 1.5rem; }
+      .contact-phone { font-size: 2.2rem; }
+    }
+    @media (max-width: 480px) {
+      .city-grid { grid-template-columns: 1fr; }
+      .hero-pills { gap: 0.5rem; }
+      .hero-pill { font-size: 0.82rem; padding: 0.5rem 1rem; }
+      .tour-highlights { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<header class="navbar" id="navbar">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <span class="be-name">Bandal Enterprises</span>
+      <span class="be-sub">Tourism · Properties · Fresh Produce</span>
+    </div>
+    <button class="hamburger" id="ham" aria-label="Menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav-links" id="navlinks">
+      <a href="#about">आमच्याबद्दल</a>
+      <a href="#tourism">Tourism</a>
+      <a href="#properties">Properties</a>
+      <a href="#produce">Vegetables</a>
+      <a href="#coverage">Locations</a>
+      <a href="#contact" class="nav-cta">📞 संपर्क</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="home">
+  <!-- Background layers -->
+  <div class="hero-bg-layer l1"></div>
+  <div class="hero-bg-layer l2"></div>
+  <div class="hero-bg-layer l3"></div>
+  <div class="hero-bg-layer l4"></div>
+
+  <!-- Gold floating particles -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Hero content -->
+  <div class="hero-content">
+    <div class="hero-badge">Est. Since · Sindhudurg · Kokan</div>
+
+    <h1 class="hero-title">
+      Bandal<br><span class="gold">Enterprises</span>
+    </h1>
+    <p class="hero-sub">तुमच्या प्रत्येक गरजेसाठी एकच विश्वस्त नाव</p>
+
+    <p class="hero-tagline">
+      सिंधुदुर्ग टूरिझम
+      <span class="dot">✦</span>
+      Properties
+      <span class="dot">✦</span>
+      ताजे भाजीपाला व फळे
+    </p>
+
+    <div class="hero-pills">
+      <div class="hero-pill sea"><i class="fas fa-umbrella-beach"></i> Sindhudurg Tourism</div>
+      <div class="hero-pill prop"><i class="fas fa-home"></i> Properties</div>
+      <div class="hero-pill veg"><i class="fas fa-seedling"></i> Vegetables & Fruits</div>
+    </div>
+
+    <div class="hero-btns">
+      <a href="#contact" class="btn-gold"><i class="fas fa-phone-alt"></i> आता संपर्क करा</a>
+      <a href="#about" class="btn-outline"><i class="fas fa-arrow-down"></i> अधिक जाणून घ्या</a>
+    </div>
+  </div>
+
+  <!-- Waves -->
+  <div class="hero-waves">
+    <svg viewBox="0 0 1440 160" preserveAspectRatio="none" width="100%" height="160">
+      <path class="wave-anim" d="M0,80 C240,130 480,30 720,80 C960,130 1200,30 1440,80 L1440,160 L0,160 Z" fill="rgba(13,79,107,0.3)"/>
+      <path class="wave-anim2" d="M0,100 C200,60 500,140 800,90 C1050,50 1280,120 1440,95 L1440,160 L0,160 Z" fill="rgba(12,24,38,0.6)"/>
+      <path d="M0,120 C300,100 700,145 1440,115 L1440,160 L0,160 Z" fill="#0c0f14"/>
+    </svg>
+  </div>
+
+  <div class="scroll-cue">
+    <span>खाली पाहा</span>
+    <i class="fas fa-chevron-down"></i>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="about-section" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <!-- Visual side -->
+      <div class="about-visual">
+        <div class="about-img-wrap">
+          <img src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=800&q=75" alt="Bandal Enterprises Office" onerror="this.style.background='#1c2130'">
+          <div class="about-img-overlay"></div>
+        </div>
+        <div class="stat-float s1">
+          <div class="num">3+</div>
+          <div class="lbl">Services</div>
+        </div>
+        <div class="stat-float s2">
+          <div class="num">4</div>
+          <div class="lbl">Cities</div>
+        </div>
+      </div>
+
+      <!-- Text side -->
+      <div class="about-text">
+        <div class="sec-eyebrow eyebrow-gold">आमच्याबद्दल</div>
+        <div class="be-full">Bandal<br>Enterprises</div>
+        <div class="person">Rakesh Ramesh Bandal</div>
+        <div class="desig">Marketing & Service Head</div>
+
+        <p>
+          आम्ही एक विश्वासार्ह multi-service company आहोत जी सिंधुदुर्ग (कोकण) मधून काम करते.
+          Tourism, Real Estate Properties, आणि ताज्या भाजीपाला व फळांची supply — तिन्ही क्षेत्रांत आम्ही Mumbai, Navi Mumbai, Kokan आणि Bangalore मध्ये सेवा देतो.
+        </p>
+        <p>
+          आमचा विश्वास आहे की प्रत्येक ग्राहकाला सर्वोत्तम अनुभव मिळावा — मग ती सहल असो, घर असो किंवा ताजी भाजी असो.
+        </p>
+
+        <div class="service-tags">
+          <span class="stag t1">🌊 सिंधुदुर्ग Tourism</span>
+          <span class="stag t2">🏘️ Properties</span>
+          <span class="stag t3">🥦 Vegetables & Fruits</span>
+        </div>
+
+        <div class="locations-bar">
+          <i class="fas fa-map-marker-alt loc-icon"></i>
+          <span class="loc-item">Mumbai</span>
+          <span class="loc-sep">·</span>
+          <span class="loc-item">Navi Mumbai</span>
+          <span class="loc-sep">·</span>
+          <span class="loc-item">Kokan</span>
+          <span class="loc-sep">·</span>
+          <span class="loc-item">Bangalore</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TOURISM ===== -->
+<section class="tourism-section" id="tourism">
+  <div class="container">
+    <div class="sec-header">
+      <div class="sec-eyebrow eyebrow-sea">🌊 Service 1</div>
+      <h2 class="sec-title">सिंधुदुर्ग <span style="color:var(--sea2)">टूरिझम</span></h2>
+      <div class="gold-divider"></div>
+      <p class="sec-desc">न पाहिलेले समुद्रकिनारे, ऐतिहासिक किल्ले, मंदिरे आणि खास कोकणी अनुभव — सगळं एकाच सहलीत.</p>
+    </div>
+
+    <div class="tour-grid">
+      <!-- Featured card -->
+      <div class="tour-card featured">
+        <div class="tour-img">
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=900&q=75" alt="Sindhudurg Beach" onerror="this.style.background='#0d4f6b'">
+          <div class="tour-img-overlay"></div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-label">✦ Signature Experience</div>
+          <h3>सिंधुदुर्ग — कोकणचा रत्न</h3>
+          <p>प्रमुख पर्यटन स्थळे तर आम्ही दाखवूच, पण न पाहिलेले अनामित किनारे, लपलेली मंदिरे आणि इतर प्रेक्षणीय ठिकाणे पण फिरवू. तुमची सहल खास करणं हे आमचं काम आहे.</p>
+          <div class="tour-features">
+            <span class="tf"><i class="fas fa-check"></i> राहण्याची सोय</span>
+            <span class="tf"><i class="fas fa-check"></i> खाण्याची व्यवस्था</span>
+            <span class="tf"><i class="fas fa-check"></i> Guide सेवा</span>
+            <span class="tf"><i class="fas fa-check"></i> Water Sports</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scuba card -->
+      <div class="tour-card">
+        <div class="tour-img">
+          <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=75" alt="Scuba Diving" onerror="this.style.background='#0d4f6b'">
+          <div class="tour-img-overlay"></div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-label">Water Adventure</div>
+          <h3>स्कुबा डायव्हिंग</h3>
+          <p>आमची स्वतःची trained team. पूर्ण सुरक्षित व व्यावसायिक अनुभव.</p>
+        </div>
+      </div>
+
+      <!-- Seafood card -->
+      <div class="tour-card">
+        <div class="tour-img">
+          <img src="https://images.unsplash.com/photo-1615361200141-f45040f367be?w=600&q=75" alt="Seafood" onerror="this.style.background='#3d1a0a'">
+          <div class="tour-img-overlay"></div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-label">Local Cuisine</div>
+          <h3>ताजे सीफूड</h3>
+          <p>वेगवेगळ्या प्रकारचे ताजे मासे. कोकणी मसाल्याचा खरा स्वाद.</p>
+        </div>
+      </div>
+
+      <!-- Homestay card -->
+      <div class="tour-card">
+        <div class="tour-img">
+          <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=75" alt="Homestay" onerror="this.style.background='#1a3020'">
+          <div class="tour-img-overlay"></div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-label">Accommodation</div>
+          <h3>होम स्टे → Luxury</h3>
+          <p>बजेटनुसार पर्याय. साध्या होम स्टे पासून 5-star पर्यंत.</p>
+        </div>
+      </div>
+
+      <!-- Fort card -->
+      <div class="tour-card">
+        <div class="tour-img">
+          <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=600&q=75" alt="Fort" onerror="this.style.background='#2a1a0a'">
+          <div class="tour-img-overlay"></div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-label">Heritage</div>
+          <h3>किल्ले व मंदिरे</h3>
+          <p>सिंधुदुर्ग किल्ला व इतर ऐतिहासिक स्थळे. इतिहासाचा जिवंत अनुभव.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Highlights row -->
+    <div class="tour-highlights">
+      <div class="th-card">
+        <span class="th-icon">🏖️</span>
+        <h4>Secret Beaches</h4>
+        <p>न पाहिलेले, शांत, स्वच्छ समुद्रकिनारे फक्त आमच्याद्वारे</p>
+      </div>
+      <div class="th-card">
+        <span class="th-icon">🤿</span>
+        <h4>Scuba Diving</h4>
+        <p>Certified team, professional equipment, 100% safe</p>
+      </div>
+      <div class="th-card">
+        <span class="th-icon">🍱</span>
+        <h4>Authentic Food</h4>
+        <p>ताजे मासे, कोकणी जेवण, खवय्यांसाठी खास पर्याय</p>
+      </div>
+      <div class="th-card">
+        <span class="th-icon">🚗</span>
+        <h4>Full Package</h4>
+        <p>Travel, stay, food, guide — सगळं एकत्र arrange करतो</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROPERTIES ===== -->
+<section class="properties-section" id="properties">
+  <div class="container">
+    <div class="sec-header">
+      <div class="sec-eyebrow eyebrow-gold">🏘️ Service 2</div>
+      <h2 class="sec-title">Properties & <span style="color:var(--gold)">Real Estate</span></h2>
+      <div class="gold-divider"></div>
+      <p class="sec-desc">Mumbai, Navi Mumbai, Kokan आणि Bangalore मध्ये property खरेदी, विक्री व भाड्याने देणे.</p>
+    </div>
+
+    <div class="prop-grid">
+      <div class="prop-card">
+        <div class="prop-img">
+          <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=75" alt="Mumbai Properties" onerror="this.style.background='#1c1a2a'">
+          <div class="prop-badge">Mumbai</div>
+        </div>
+        <div class="prop-body">
+          <div class="prop-city">Mumbai · Navi Mumbai</div>
+          <h3>Residential & Commercial</h3>
+          <p>मुंबई व नवी मुंबईत flat, bungalow, commercial space — सर्व प्रकारच्या properties उपलब्ध.</p>
+          <a href="tel:+919833110591" class="prop-link">चौकशी करा <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="prop-card">
+        <div class="prop-img">
+          <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=75" alt="Kokan Properties" onerror="this.style.background='#0d1c0a'">
+          <div class="prop-badge" style="background:#2e8b5e;">Kokan</div>
+        </div>
+        <div class="prop-body">
+          <div class="prop-city" style="color:#7de8b0;">Sindhudurg · Kokan</div>
+          <h3>Farm House & Plots</h3>
+          <p>कोकणात farm house, plots, holiday homes. निसर्गरम्य वातावरणात स्वप्नातील घर.</p>
+          <a href="tel:+919833110591" class="prop-link">चौकशी करा <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="prop-card">
+        <div class="prop-img">
+          <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=75" alt="Bangalore Properties" onerror="this.style.background='#1a1020'">
+          <div class="prop-badge" style="background:#9b5dcc;">Bangalore</div>
+        </div>
+        <div class="prop-body">
+          <div class="prop-city" style="color:#c090f0;">Bangalore</div>
+          <h3>Urban & IT Corridor</h3>
+          <p>Bangalore मध्ये IT corridor जवळ apartments, villas व commercial properties.</p>
+          <a href="tel:+919833110591" class="prop-link">चौकशी करा <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA bar -->
+    <div class="prop-cta-bar">
+      <div>
+        <h3>तुम्हाला घर हवंय?</h3>
+        <p>आमच्याशी बोला — Budget, location आणि गरजेनुसार best option शोधू</p>
+      </div>
+      <a href="tel:+919833110591" class="btn-gold"><i class="fas fa-phone-alt"></i> Rakesh Bandal ला Call करा</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRODUCE ===== -->
+<section class="produce-section" id="produce">
+  <div class="container">
+    <div class="produce-layout">
+      <!-- Image grid -->
+      <div class="produce-img-grid">
+        <div class="produce-img-item">
+          <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&q=75" alt="Fresh Vegetables" onerror="this.style.background='#1e3a1e'; this.style.minHeight='300px'">
+          <div class="p-label">ताजी भाजी</div>
+        </div>
+        <div class="produce-img-item">
+          <img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?w=400&q=75" alt="Fresh Fruits" onerror="this.style.background='#3a1e10'; this.style.minHeight='140px'">
+          <div class="p-label">ताजी फळे</div>
+        </div>
+        <div class="produce-img-item">
+          <img src="https://images.unsplash.com/photo-1597362925123-77861d3fbac7?w=400&q=75" alt="Organic Produce" onerror="this.style.background='#1e2e10'; this.style.minHeight='140px'">
+          <div class="p-label">Farm Fresh</div>
+        </div>
+      </div>
+
+      <!-- Content side -->
+      <div class="produce-content">
+        <div class="sec-eyebrow eyebrow-grn" style="text-align:left; display:inline-block;">🥦 Service 3</div>
+        <h2 style="margin-top:0.8rem;">Vegetables<br>& <span style="color:#28a86a;">Fruits</span></h2>
+        <div class="gold-divider" style="margin-left:0;"></div>
+        <p>थेट शेतातून ताजे भाजीपाला आणि फळे — कुठलीही middlemen नाही. ताजेपणा guaranteed. कोकणातून Mumbai, Navi Mumbai आणि Bangalore पर्यंत.</p>
+
+        <div class="produce-list">
+          <div class="produce-item">
+            <div class="produce-item-icon">🥬</div>
+            <div class="produce-item-text">
+              <h4>ताज्या भाज्या</h4>
+              <p>Seasonal vegetables — spinach, methi, karela आणि बरेच काही. रोज ताजे.</p>
+            </div>
+          </div>
+          <div class="produce-item">
+            <div class="produce-item-icon">🍎</div>
+            <div class="produce-item-text">
+              <h4>ताजी फळे</h4>
+              <p>Seasonal fruits — आंबा, काजू, नारळ (कोकणातून) आणि सर्व प्रकारची फळे.</p>
+            </div>
+          </div>
+          <div class="produce-item">
+            <div class="produce-item-icon">🚚</div>
+            <div class="produce-item-text">
+              <h4>Bulk Supply</h4>
+              <p>Restaurants, hotels, caterers साठी bulk order. Fixed price, reliable delivery.</p>
+            </div>
+          </div>
+        </div>
+
+        <p style="font-size:0.85rem; color:rgba(255,255,255,0.5); margin-bottom:0.8rem;">Delivery Coverage:</p>
+        <div class="coverage-chips">
+          <div class="chip"><i class="fas fa-map-marker-alt"></i> Mumbai</div>
+          <div class="chip"><i class="fas fa-map-marker-alt"></i> Navi Mumbai</div>
+          <div class="chip"><i class="fas fa-map-marker-alt"></i> Kokan</div>
+          <div class="chip"><i class="fas fa-map-marker-alt"></i> Bangalore</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COVERAGE ===== -->
+<section class="coverage-section" id="coverage">
+  <div class="container">
+    <div class="sec-header">
+      <div class="sec-eyebrow eyebrow-gold">📍 Locations</div>
+      <h2 class="sec-title">आम्ही कुठे <span style="color:var(--gold)">काम करतो</span></h2>
+      <div class="gold-divider"></div>
+      <p class="sec-desc">4 major cities मध्ये आमच्या सेवा उपलब्ध आहेत</p>
+    </div>
+
+    <div class="city-grid">
+      <div class="city-card">
+        <span class="city-icon">🏙️</span>
+        <h3>Mumbai</h3>
+        <div class="city-services">
+          <div class="cs"><i class="fas fa-check-circle"></i> Properties</div>
+          <div class="cs"><i class="fas fa-check-circle"></i> Vegetables & Fruits</div>
+          <div class="cs"><i class="fas fa-check-circle"></i> Tour Bookings</div>
+        </div>
+      </div>
+      <div class="city-card">
+        <span class="city-icon">🌆</span>
+        <h3>Navi Mumbai</h3>
+        <div class="city-services">
+          <div class="cs"><i class="fas fa-check-circle"></i> Properties</div>
+          <div class="cs"><i class="fas fa-check-circle"></i> Vegetables & Fruits</div>
+          <div class="cs"><i class="fas fa-check-circle"></i> Tour Bookings</div>
+        </div>
+      </div>
+      <div class="city-card">
+        <span class="city-icon">🌊</span>
+        <h3>Kokan</h3>
+        <div class="city-services">
+          <div class="cs"><i class="fas fa-check-circle"></i> Sindhudurg Tourism (HQ)</div>
+          <div class="cs"><i class="fas fa-check-circle"></i> Farm Properties</div>
+          <div class="cs"><i class="fas fa-check-circle"></i> Fresh Farm Produce</div>
+        </div>
+      </div>
+      <div class="city-card">
+        <span class="city-icon">🌳</span>
+        <h3>Bangalore</h3>
+        <div class="city-services">
+          <div class="cs"><i class="fas fa-check-circle"></i> Properties</div>
+          <div class="cs"><i class="fas fa-check-circle"></i> Vegetables & Fruits</div>
+          <div class="cs"><i class="fas fa-check-circle"></i> Tour Bookings</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="sec-header">
+      <div class="sec-eyebrow eyebrow-gold">📞 संपर्क</div>
+      <h2 class="sec-title">आत्ताच <span style="color:var(--gold)">बोलूया</span></h2>
+      <div class="gold-divider"></div>
+      <p class="sec-desc">Tour booking, property enquiry किंवा vegetables order — कशासाठीही संपर्क करा</p>
+    </div>
+
+    <div class="contact-inner">
+      <div class="contact-card-main">
+        <div class="be-logo-contact">BE</div>
+        <div class="contact-name">Rakesh Ramesh Bandal</div>
+        <div class="contact-desig">Marketing & Service Head · Bandal Enterprises</div>
+
+        <div class="contact-phone">९८३३ ११ ०५९१</div>
+        <div class="contact-phone-eng">9833110591</div>
+
+        <div class="contact-btns">
+          <a href="tel:+919833110591" class="btn-call">
+            <i class="fas fa-phone-alt"></i> Call करा
+          </a>
+          <a href="https://wa.me/919833110591?text=नमस्कार, मला Bandal Enterprises बद्दल माहिती हवी आहे." class="btn-wa" target="_blank">
+            <i class="fab fa-whatsapp"></i> WhatsApp करा
+          </a>
+        </div>
+
+        <div class="contact-services-grid">
+          <div class="cs-chip">
+            <span class="cs-icon">🌊</span>
+            <strong>Tourism</strong>
+            Tour, Hotel, Scuba, Guide
+          </div>
+          <div class="cs-chip">
+            <span class="cs-icon">🏘️</span>
+            <strong>Properties</strong>
+            Buy, Sell, Rent
+          </div>
+          <div class="cs-chip">
+            <span class="cs-icon">🥦</span>
+            <strong>Vegetables & Fruits</strong>
+            Bulk & Retail Orders
+          </div>
+        </div>
+      </div>
+
+      <p style="color:rgba(255,255,255,0.3); font-size:0.85rem;">
+        <i class="fas fa-clock" style="color:var(--gold);"></i>
+        Available: मराठी · हिंदी · English &nbsp;|&nbsp;
+        <i class="fas fa-map-marker-alt" style="color:var(--gold);"></i>
+        Mumbai · Navi Mumbai · Kokan · Bangalore
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <div class="footer-brand">Bandal Enterprises</div>
+    <p class="footer-tag">Tourism · Properties · Vegetables & Fruits</p>
+    <div class="footer-links">
+      <a href="#tourism">🌊 Tourism</a>
+      <a href="#properties">🏘️ Properties</a>
+      <a href="#produce">🥦 Vegetables</a>
+      <a href="#coverage">📍 Locations</a>
+      <a href="#contact">📞 Contact</a>
+    </div>
+    <p class="footer-copy">© 2025 Bandal Enterprises | Rakesh Ramesh Bandal | 9833110591</p>
+    <p class="footer-dev">
+      <i class="fas fa-code"></i> Developed by <a href="tel:+918605133593">Manoj Sabale</a> · <a href="tel:+918605133593">8605133593</a>
+    </p>
+  </div>
+</footer>
+
+<!-- ===== SCRIPTS ===== -->
+<script>
+  // Navbar scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // Mobile menu toggle
+  function toggleMenu() {
+    document.getElementById('navlinks').classList.toggle('open');
+  }
+  // Close menu on link click
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => {
+      document.getElementById('navlinks').classList.remove('open');
+    });
+  });
+
+  // Gold particles
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 25; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random() * 4 + 1;
+    p.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${Math.random()*100}%;
+      animation-duration:${Math.random()*15+10}s;
+      animation-delay:${Math.random()*10}s;
+      opacity:0;
+    `;
+    container.appendChild(p);
+  }
+</script>
+</body>
+</html>
